@@ -1,4 +1,6 @@
 # Média Certa — Calculadora de Aprovação
+Aplicação disponível em:
+https://mestreudk.github.io/Media-Certa/
 
 Aplicação 100% estática para calcular quanto um aluno precisa tirar nas avaliações restantes para alcançar uma média mínima. Funciona em celular e computador, sem cadastro, sem banco de dados e sem dependências externas.
 
