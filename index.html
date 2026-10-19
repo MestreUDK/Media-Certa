@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1424">
+  <meta name="description" content="Calcule quanto um aluno precisa tirar nas avaliações restantes para atingir a média mínima de aprovação.">
+  <title>Média Certa — Calculadora de Aprovação</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#avaliacoes">Ir para as avaliações</a>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="Média Certa">
+        <span class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 28 28" fill="none"><rect x="4" y="3.5" width="20" height="21" rx="5" stroke="currentColor" stroke-width="2"/><path d="M9 10h10M9 15h3m-3 5h3m4-5h3m-3 5h3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        </span>
+        <div><div class="brand-name">Média<span>Certa</span></div><div class="brand-sub">Calculadora de aprovação</div></div>
+      </div>
+      <button id="theme-toggle" class="icon-button theme-button" type="button" aria-label="Alternar tema" title="Alternar tema">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.1 15.1A8.5 8.5 0 0 1 8.9 3.9a8.5 8.5 0 1 0 11.2 11.2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span class="theme-label">Tema</span>
+      </button>
+    </header>
+
+    <main>
+      <div class="intro">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> SIMULE A APROVAÇÃO</span>
+        <h1>Quanto falta para <span>ser aprovado?</span></h1>
+        <p>Informe a média exigida e as notas já obtidas. Descubra, em tempo real, a média necessária nas próximas avaliações.</p>
+      </div>
+
+      <div class="dashboard">
+        <div class="editor-column">
+          <section class="panel config-panel" aria-labelledby="config-title">
+            <div class="panel-heading">
+              <div class="heading-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 17h16M9 4v6m6 4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div><h2 id="config-title">Configuração</h2><p>Defina a regra de aprovação</p></div>
+            </div>
+            <div class="config-grid">
+              <div class="field">
+                <label for="minima">Média mínima para aprovação</label>
+                <div class="input-unit"><input id="minima" type="text" inputmode="decimal" spellcheck="false" autocomplete="off" aria-describedby="minima-help minima-error" value="5,0"><span>de 10</span></div>
+                <small id="minima-help">Aceita vírgula ou ponto decimal</small>
+                <small id="minima-error" class="field-error" hidden>Informe um valor entre 0 e 10.</small>
+              </div>
+              <div class="field">
+                <span class="field-label">Total de avaliações</span>
+                <div class="counter"><button id="remove-evaluation" class="counter-button" type="button" aria-label="Remover a última avaliação" title="Remover a última avaliação">−</button><output id="count-value" aria-live="polite">4</output><button id="add-evaluation" class="counter-button" type="button" aria-label="Adicionar uma avaliação" title="Adicionar uma avaliação">+</button></div>
+                <small>De 1 a 12 avaliações</small>
+              </div>
+            </div>
+          </section>
+
+          <section id="avaliacoes" class="panel grades-panel" aria-labelledby="grades-title">
+            <div class="grades-heading">
+              <div class="panel-heading">
+                <div class="heading-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M7 3.5h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-14a2 2 0 0 1 2-2ZM9 9h6m-6 4h6m-6 4h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </div>
+                <div><h2 id="grades-title">Notas das avaliações</h2><p>Preencha apenas as que já aconteceram</p></div>
+              </div>
+              <span class="small-pill" id="filled-badge">0 de 4</span>
+            </div>
+            <div id="grades-grid" class="grades-grid"></div>
+            <div class="actions">
+              <button id="example-button" type="button" class="button button-secondary">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3ZM19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8L19 17Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                Usar exemplo
+              </button>
+              <button id="clear-button" type="button" class="button button-ghost">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-.7 13H6.7L6 7m4 4v5m4-5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Limpar notas
+              </button>
+            </div>
+            <p class="saved-note"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> As informações são salvas apenas neste navegador.</p>
+          </section>
+        </div>
+
+        <aside class="result-column" aria-labelledby="result-title">
+          <section id="result-panel" class="panel result-panel" data-status="pending">
+            <div class="result-topline"><span class="result-overline">RESULTADO DA SIMULAÇÃO</span><span id="status-pill" class="status-pill">Em andamento</span></div>
+            <div class="result-main">
+              <div class="result-symbol" id="result-symbol" aria-hidden="true">↗</div>
+              <h2 id="result-title">Média necessária</h2>
+              <div class="hero-value"><strong id="required-value">5,00</strong><span id="required-suffix">/ 10</span></div>
+              <p id="result-description" class="result-description" role="status" aria-live="polite">Para ser aprovado, é preciso atingir a média mínima nas avaliações restantes.</p>
+            </div>
+            <div class="progress-container">
+              <div class="progress-heading"><span>Progresso até a média mínima</span><strong id="progress-label">0%</strong></div>
+              <div id="progressbar" class="progress-track" role="progressbar" aria-label="Progresso da pontuação necessária" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill" class="progress-fill"></div></div>
+              <p id="progress-detail" class="progress-detail">0 de 20 pontos necessários</p>
+            </div>
+            <div class="metrics">
+              <div class="metric"><span>Média das notas lançadas</span><strong id="current-value">—</strong></div>
+              <div class="metric"><span>Maior média final possível</span><strong id="maximum-value">10,00</strong></div>
+              <div class="metric"><span>Avaliações restantes</span><strong id="remaining-value">4</strong></div>
+            </div>
+            <div id="calculation-warning" class="calculation-warning" hidden>Confira os valores informados para visualizar o resultado.</div>
+          </section>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-8v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p><strong>Como é calculado?</strong> Todas as avaliações têm o mesmo peso. A aplicação considera nota máxima 10 e calcula a média exigida nas avaliações que ainda faltam.</p></div>
+        </aside>
+      </div>
+    </main>
+    <footer>Feito para facilitar o acompanhamento das avaliações. <span>•</span> Sem cadastro e sem banco de dados.</footer>
+  </div>
+</body>
+</html>
