@@ -29,7 +29,7 @@
       <div class="intro">
         <span class="eyebrow"><span class="eyebrow-dot"></span> SIMULE A APROVAÇÃO</span>
         <h1>Quanto falta para <span>ser aprovado?</span></h1>
-        <p>Informe a média exigida e as notas já obtidas. Descubra, em tempo real, a média necessária nas próximas avaliações.</p>
+        <p>Informe a média exigida e as notas já obtidas. Escolha entre a média simples ou a ponderada para descobrir o que falta nas próximas avaliações.</p>
       </div>
 
       <div class="dashboard">
@@ -40,6 +40,18 @@
                 <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 17h16M9 4v6m6 4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </div>
               <div><h2 id="config-title">Configuração</h2><p>Defina a regra de aprovação</p></div>
+            </div>
+            <div class="mode-chooser">
+              <span class="field-label">Modo de cálculo</span>
+              <div class="mode-options" role="group" aria-label="Modo de cálculo">
+                <button id="mode-simple" type="button" class="mode-option active" aria-pressed="true">
+                  <strong>Simples</strong><small>Pesos iguais</small>
+                </button>
+                <button id="mode-weighted" type="button" class="mode-option" aria-pressed="false">
+                  <strong>Ponderado</strong><small>Pesos por avaliação</small>
+                </button>
+              </div>
+              <p class="mode-hint" id="mode-hint">Todas as avaliações têm o mesmo peso.</p>
             </div>
             <div class="config-grid">
               <div class="field">
@@ -62,11 +74,15 @@
                 <div class="heading-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none"><path d="M7 3.5h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-14a2 2 0 0 1 2-2ZM9 9h6m-6 4h6m-6 4h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 </div>
-                <div><h2 id="grades-title">Notas das avaliações</h2><p>Preencha apenas as que já aconteceram</p></div>
+                <div><h2 id="grades-title">Notas das avaliações</h2><p id="grades-description">Preencha apenas as que já aconteceram</p></div>
               </div>
               <span class="small-pill" id="filled-badge">0 de 4</span>
             </div>
             <div id="grades-grid" class="grades-grid"></div>
+            <div id="weights-summary" class="weights-summary" hidden>
+              <div><span>Total dos pesos</span><strong id="total-weight">4,00</strong></div>
+              <p>Os pesos são relativos: podem ser 1, 2 e 3 ou 20, 30 e 50. Não precisam somar 100.</p>
+            </div>
             <div class="actions">
               <button id="example-button" type="button" class="button button-secondary">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3ZM19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8L19 17Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
@@ -96,13 +112,14 @@
               <p id="progress-detail" class="progress-detail">0 de 20 pontos necessários</p>
             </div>
             <div class="metrics">
-              <div class="metric"><span>Média das notas lançadas</span><strong id="current-value">—</strong></div>
+              <div class="metric"><span id="current-label">Média das notas lançadas</span><strong id="current-value">—</strong></div>
               <div class="metric"><span>Maior média final possível</span><strong id="maximum-value">10,00</strong></div>
               <div class="metric"><span>Avaliações restantes</span><strong id="remaining-value">4</strong></div>
+              <div id="remaining-weight-metric" class="metric" hidden><span>Peso ainda disponível</span><strong id="remaining-weight">—</strong></div>
             </div>
             <div id="calculation-warning" class="calculation-warning" hidden>Confira os valores informados para visualizar o resultado.</div>
           </section>
-          <div class="tip"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-8v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p><strong>Como é calculado?</strong> Todas as avaliações têm o mesmo peso. A aplicação considera nota máxima 10 e calcula a média exigida nas avaliações que ainda faltam.</p></div>
+          <div class="tip"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5m0-8v.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p id="calculation-tip"><strong>Como é calculado?</strong> Todas as avaliações têm o mesmo peso. A aplicação considera nota máxima 10 e calcula a média exigida nas avaliações que ainda faltam.</p></div>
         </aside>
       </div>
     </main>
